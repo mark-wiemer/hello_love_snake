@@ -79,7 +79,7 @@ function love.update(dt)
 			nextXPosition = nextXPosition + 1
 		end
 
-		-- determine game over
+		-- restart if game over
 		local canMove = true
 		for segmentIndex, segment in ipairs(snakeSegments) do
 			if segmentIndex ~= #snakeSegments and nextXPosition == segment.x and nextYPosition == segment.y then
@@ -91,18 +91,17 @@ function love.update(dt)
 			if nextXPosition > gridXCount or nextYPosition > gridYCount then
 				canMove = false
 			end
+			if not canMove then
+				love.load()
+				return
+			end
 		end
 
-		-- move the snake or restart
-		if canMove then
-			table.insert(snakeSegments, 1, {
-				x = nextXPosition,
-				y = nextYPosition,
-			}) -- enqueue (first element)
-		else
-			love.load()
-			return
-		end
+		-- move the snake
+		table.insert(snakeSegments, 1, {
+			x = nextXPosition,
+			y = nextYPosition,
+		}) -- enqueue (first element)
 
 		-- eat the food
 		if snakeSegments[1].x == foodPosition.x and snakeSegments[1].y == foodPosition.y then
