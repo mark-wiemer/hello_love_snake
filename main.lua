@@ -56,13 +56,13 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
-    if key == 'up' then
+    if key == 'up' or key == 'w' then
         direction = 'up'
-    elseif key == 'down' then
+    elseif key == 'down' or key == 's' then
         direction = 'down'
-    elseif key == 'left' then
+    elseif key == 'left' or key == 'a' then
         direction = 'left'
-    elseif key == 'right' then
+    elseif key == 'right' or key == 'd' then
         direction = 'right'
     end
 end
