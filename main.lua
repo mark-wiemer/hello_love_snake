@@ -1,7 +1,24 @@
 ---@diagnostic disable: lowercase-global
 
 function moveFood()
-	foodPosition = { x = love.math.random(1, gridXCount), y = love.math.random(1, gridYCount) }
+	local possibleFoodPositions = {}
+	for foodX = 1, gridXCount do
+		for foodY = 1, gridYCount do
+			local possible = true
+
+			for segmentIndex, segment in ipairs(snakeSegments) do
+				if foodX == segment.x and foodY == segment.y then
+					possible = false
+				end
+			end
+
+			if possible then
+				table.insert(possibleFoodPositions, { x = foodX, y = foodY })
+			end
+		end
+	end
+
+	foodPosition = possibleFoodPositions[love.math.random(#possibleFoodPositions)]
 end
 
 function love.load()
