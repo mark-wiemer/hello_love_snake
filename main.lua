@@ -66,13 +66,13 @@ function love.keypressed(key)
     end
 
     lastAddedDir = directionQueue[#directionQueue]
-    if (key == 'up' or key == 'w') and lastAddedDir ~= 'down' then
+    if (key == 'up' or key == 'w') and lastAddedDir ~= 'up' and lastAddedDir ~= 'down' then
         table.insert(directionQueue, 'up')
-    elseif (key == 'down' or key == 's') and lastAddedDir ~= 'up' then
+    elseif (key == 'down' or key == 's') and lastAddedDir ~= 'down' and lastAddedDir ~= 'up' then
         table.insert(directionQueue, 'down')
-    elseif (key == 'left' or key == 'a') and lastAddedDir ~= 'right' then
+    elseif (key == 'left' or key == 'a') and lastAddedDir ~= 'left' and lastAddedDir ~= 'right' then
         table.insert(directionQueue, 'left')
-    elseif (key == 'right' or key == 'd') and lastAddedDir ~= 'left' then
+    elseif (key == 'right' or key == 'd') and lastAddedDir ~= 'right' and lastAddedDir ~= 'left' then
         table.insert(directionQueue, 'right')
     end
 end
