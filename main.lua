@@ -61,7 +61,13 @@ function love.update(dt)
 			x = nextXPosition,
 			y = nextYPosition,
 		}) -- enqueue (first element)
-		table.remove(snakeSegments) -- dequeue (last element)
+
+		if snakeSegments[1].x == foodPosition.x and snakeSegments[1].y == foodPosition.y then
+			foodPosition.x = love.math.random(gridXCount)
+			foodPosition.y = love.math.random(gridYCount)
+		else
+			table.remove(snakeSegments) -- dequeue (last element)
+		end
 	end
 end
 
