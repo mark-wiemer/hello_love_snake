@@ -49,7 +49,11 @@ function love.draw()
 	love.graphics.rectangle("fill", 0, 0, gridXCount * cellSize, gridYCount * cellSize)
 
 	for segmentIndex, segment in ipairs(snakeSegments) do
-		love.graphics.setColor(0.6, 1, 0.32)
+		if snakeAlive then
+			love.graphics.setColor(0.6, 1, 0.32)
+		else
+			love.graphics.setColor(0.5, 0.5, 0.5)
+		end
 		drawCell(segment.x, segment.y)
 	end
 
