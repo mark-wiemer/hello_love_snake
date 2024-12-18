@@ -1,5 +1,7 @@
 Original code based off https://berbasoft.com/simplegametutorials/love/snake/, public domain, ref https://berbasoft.com/simplegametutorials/about/.
 
+LÖVE licenses found under dist/license.txt and apply to the bundled game only.
+
 ---
 
 Copyright 2024 Mark Wiemer
