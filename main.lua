@@ -61,6 +61,10 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
+    if key == "escape" then
+        love.event.quit()
+    end
+
     lastAddedDir = directionQueue[#directionQueue]
     if (key == 'up' or key == 'w') and lastAddedDir ~= 'down' then
         table.insert(directionQueue, 'up')
