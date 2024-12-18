@@ -27,18 +27,42 @@ function love.load()
         { x = 2, y = 1 },
         { x = 1, y = 1 },
     }
+    -- 'up', 'down', 'left', or 'right'
+    direction = 'right'
 end
 
 function love.update(dt)
     timer = timer + dt
     if timer >= 0.15 then
         timer = timer - 0.15
-        local nextXPosition = snakeSegments[1].x + 1
+        local nextXPosition = snakeSegments[1].x
         local nextYPosition = snakeSegments[1].y
+
+        if direction == 'up' then
+            nextYPosition = nextYPosition - 1
+        elseif direction == 'down' then
+            nextYPosition = nextYPosition + 1
+        elseif direction == 'left' then
+            nextXPosition = nextXPosition - 1
+        elseif direction == 'right' then
+            nextXPosition = nextXPosition + 1
+        end
 
         table.insert(snakeSegments, 1, {
             x = nextXPosition, y = nextYPosition
         })                          -- enqueue (first element)
         table.remove(snakeSegments) -- dequeue (last element)
+    end
+end
+
+function love.keypressed(key)
+    if key == 'up' then
+        direction = 'up'
+    elseif key == 'down' then
+        direction = 'down'
+    elseif key == 'left' then
+        direction = 'left'
+    elseif key == 'right' then
+        direction = 'right'
     end
 end
