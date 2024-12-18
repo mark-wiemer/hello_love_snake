@@ -1,5 +1,6 @@
 function love.conf(t)
 	t.window.resizable = true
+	t.window.title = "Snake"
 
 	t.modules.audio = false -- Enable the audio module (boolean)
 	t.modules.data = false -- Enable the data module (boolean)
