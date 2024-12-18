@@ -28,23 +28,28 @@ function love.load()
         { x = 1, y = 1 },
     }
     -- 'up', 'down', 'left', or 'right'
-    direction = 'right'
+    directionQueue = { 'right' }
 end
 
 function love.update(dt)
     timer = timer + dt
     if timer >= 0.15 then
         timer = timer - 0.15
+
+        if #directionQueue > 1 then
+            table.remove(directionQueue, 1) -- pop earliest dir pressed
+        end
+
         local nextXPosition = snakeSegments[1].x
         local nextYPosition = snakeSegments[1].y
 
-        if direction == 'up' then
+        if directionQueue[1] == 'up' then
             nextYPosition = nextYPosition - 1
-        elseif direction == 'down' then
+        elseif directionQueue[1] == 'down' then
             nextYPosition = nextYPosition + 1
-        elseif direction == 'left' then
+        elseif directionQueue[1] == 'left' then
             nextXPosition = nextXPosition - 1
-        elseif direction == 'right' then
+        elseif directionQueue[1] == 'right' then
             nextXPosition = nextXPosition + 1
         end
 
@@ -56,13 +61,14 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
-    if (key == 'up' or key == 'w') and direction ~= 'down' then
-        direction = 'up'
-    elseif (key == 'down' or key == 's') and direction ~= 'up' then
-        direction = 'down'
-    elseif (key == 'left' or key == 'a') and direction ~= 'right' then
-        direction = 'left'
-    elseif (key == 'right' or key == 'd') and direction ~= 'left' then
-        direction = 'right'
+    lastAddedDir = directionQueue[#directionQueue]
+    if (key == 'up' or key == 'w') and lastAddedDir ~= 'down' then
+        table.insert(directionQueue, 'up')
+    elseif (key == 'down' or key == 's') and lastAddedDir ~= 'up' then
+        table.insert(directionQueue, 'down')
+    elseif (key == 'left' or key == 'a') and lastAddedDir ~= 'right' then
+        table.insert(directionQueue, 'left')
+    elseif (key == 'right' or key == 'd') and lastAddedDir ~= 'left' then
+        table.insert(directionQueue, 'right')
     end
 end
