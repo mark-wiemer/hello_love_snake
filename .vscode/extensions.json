@@ -3,6 +3,7 @@
     "sumneko.lua",
     "eamodio.gitlens",
     "github.vscode-pull-request-github",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "johnnymorganz.stylua"
   ]
 }
