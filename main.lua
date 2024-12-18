@@ -39,12 +39,15 @@ function love.load()
 end
 
 function love.draw()
-	local cellSize = 15
+	local w = love.graphics.getWidth()
+	local h = love.graphics.getHeight()
+	local cellSize = math.floor(math.min(w / gridXCount, h / gridYCount))
 
 	local function drawCell(x, y)
 		love.graphics.rectangle("fill", (x - 1) * cellSize, (y - 1) * cellSize, cellSize - 1, cellSize - 1)
 	end
 
+	-- draw background
 	love.graphics.setColor(0.28, 0.28, 0.28)
 	love.graphics.rectangle("fill", 0, 0, gridXCount * cellSize, gridYCount * cellSize)
 
