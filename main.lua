@@ -23,3 +23,16 @@ function love.draw()
 		)
 	end
 end
+
+function love.load()
+	-- global
+	timer = 0
+end
+
+function love.update(dt)
+	timer = timer + dt
+	if timer >= 0.15 then
+		timer = timer - 0.15
+		print("tick")
+	end
+end
