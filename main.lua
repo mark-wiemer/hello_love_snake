@@ -85,6 +85,12 @@ function love.update(dt)
 			if segmentIndex ~= #snakeSegments and nextXPosition == segment.x and nextYPosition == segment.y then
 				canMove = false
 			end
+			if nextXPosition == 0 or nextYPosition == 0 then
+				canMove = false
+			end
+			if nextXPosition > gridXCount or nextYPosition > gridYCount then
+				canMove = false
+			end
 		end
 
 		-- move the snake or restart
@@ -95,6 +101,7 @@ function love.update(dt)
 			}) -- enqueue (first element)
 		else
 			love.load()
+			return
 		end
 
 		-- eat the food
