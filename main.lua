@@ -1,5 +1,9 @@
 ---@diagnostic disable: lowercase-global
 
+function moveFood()
+	foodPosition = { x = love.math.random(1, gridXCount), y = love.math.random(1, gridYCount) }
+end
+
 function love.load()
 	-- global
 	timer = 0
@@ -13,7 +17,7 @@ function love.load()
 
 	gridXCount = 20
 	gridYCount = 15
-	foodPosition = { x = love.math.random(1, gridXCount), y = love.math.random(1, gridYCount) }
+	moveFood()
 end
 
 function love.draw()
@@ -63,8 +67,7 @@ function love.update(dt)
 		}) -- enqueue (first element)
 
 		if snakeSegments[1].x == foodPosition.x and snakeSegments[1].y == foodPosition.y then
-			foodPosition.x = love.math.random(gridXCount)
-			foodPosition.y = love.math.random(gridYCount)
+			moveFood()
 		else
 			table.remove(snakeSegments) -- dequeue (last element)
 		end
