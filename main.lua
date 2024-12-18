@@ -19,28 +19,20 @@ end
 function love.draw()
 	local cellSize = 15
 
+	local function drawCell(x, y)
+		love.graphics.rectangle("fill", (x - 1) * cellSize, (y - 1) * cellSize, cellSize - 1, cellSize - 1)
+	end
+
 	love.graphics.setColor(0.28, 0.28, 0.28)
 	love.graphics.rectangle("fill", 0, 0, gridXCount * cellSize, gridYCount * cellSize)
 
 	for segmentIndex, segment in ipairs(snakeSegments) do
 		love.graphics.setColor(0.6, 1, 0.32)
-		love.graphics.rectangle(
-			"fill",
-			(segment.x - 1) * cellSize,
-			(segment.y - 1) * cellSize,
-			cellSize - 1,
-			cellSize - 1
-		)
+		drawCell(segment.x, segment.y)
 	end
 
 	love.graphics.setColor(1, 0.3, 0.3)
-	love.graphics.rectangle(
-		"fill",
-		(foodPosition.x - 1) * cellSize,
-		(foodPosition.y - 1) * cellSize,
-		cellSize - 1,
-		cellSize - 1
-	)
+	drawCell(foodPosition.x, foodPosition.y)
 end
 
 function love.update(dt)
