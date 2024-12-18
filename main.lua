@@ -35,6 +35,10 @@ function love.update(dt)
         timer = timer - 0.15
         local nextXPosition = snakeSegments[1].x + 1
         local nextYPosition = snakeSegments[1].y
-        print("tick")
+
+        table.insert(snakeSegments, 1, {
+            x = nextXPosition, y = nextYPosition
+        })                          -- enqueue (first element)
+        table.remove(snakeSegments) -- dequeue (last element)
     end
 end
