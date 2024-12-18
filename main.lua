@@ -61,13 +61,14 @@ function love.update(dt)
 	if timer >= 0.15 then
 		timer = timer - 0.15
 
+		-- read from direction queue
 		if #directionQueue > 1 then
 			table.remove(directionQueue, 1) -- pop earliest dir pressed
 		end
 
+		-- calculate new head pos
 		local nextXPosition = snakeSegments[1].x
 		local nextYPosition = snakeSegments[1].y
-
 		if directionQueue[1] == "up" then
 			nextYPosition = nextYPosition - 1
 		elseif directionQueue[1] == "down" then
@@ -78,11 +79,25 @@ function love.update(dt)
 			nextXPosition = nextXPosition + 1
 		end
 
-		table.insert(snakeSegments, 1, {
-			x = nextXPosition,
-			y = nextYPosition,
-		}) -- enqueue (first element)
+		-- determine game over
+		local canMove = true
+		for segmentIndex, segment in ipairs(snakeSegments) do
+			if segmentIndex ~= #snakeSegments and nextXPosition == segment.x and nextYPosition == segment.y then
+				canMove = false
+			end
+		end
 
+		-- move the snake or restart
+		if canMove then
+			table.insert(snakeSegments, 1, {
+				x = nextXPosition,
+				y = nextYPosition,
+			}) -- enqueue (first element)
+		else
+			love.load()
+		end
+
+		-- eat the food
 		if snakeSegments[1].x == foodPosition.x and snakeSegments[1].y == foodPosition.y then
 			moveFood()
 		else
