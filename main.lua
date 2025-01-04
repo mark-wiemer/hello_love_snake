@@ -92,12 +92,16 @@ function love.update(dt)
 			-- restart if game over
 			local canMove = true
 			for segmentIndex, segment in ipairs(snakeSegments) do
+				-- if snake ate itself
+				-- note that the snake bumping into its tail doesn't count, as the tail will move
 				if segmentIndex ~= #snakeSegments and nextXPosition == segment.x and nextYPosition == segment.y then
 					canMove = false
 				end
+				-- went off left or top of screen (Lua is 1-indexed)
 				if nextXPosition == 0 or nextYPosition == 0 then
 					canMove = false
 				end
+				-- went off right or bottom of screen
 				if nextXPosition > gridXCount or nextYPosition > gridYCount then
 					canMove = false
 				end
